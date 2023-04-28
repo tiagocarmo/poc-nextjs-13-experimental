@@ -1,10 +1,25 @@
+import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
+import { gql } from '@apollo/client';
+
+let client = null;
+
+const getClient = () => {
+  if (!client || typeof window === 'undefined') {
+    client = new ApolloClient({
+      link: new HttpLink({
+        uri: 'https://beta.pokeapi.co/graphql/v1beta',
+      }),
+      cache: new InMemoryCache({
+        addTypename: false
+      }),
+    });
+  }
+
+  return client;
+};
+
 export const fetchUpdateList = async (offset = 0) => {
-  const urlGraphql = 'https://beta.pokeapi.co/graphql/v1beta';
-  const headers = {
-    'content-type': 'application/json',
-    accept: '*/*'
-  };
-  const query = `
+  const query = gql`
     query samplePokeAPIquery {
       pokemon_v2_pokemon(limit: 20, offset: ${offset}) {
         name
@@ -12,14 +27,8 @@ export const fetchUpdateList = async (offset = 0) => {
     }
   `;
 
-  const fetchData = await fetch(urlGraphql, {
-    method: 'POST',
-    body: JSON.stringify({
-      query
-    }),
-    headers
-  });
-  const { data: { pokemon_v2_pokemon: jsonData } } = await fetchData.json();
+  const client = getClient();
+  const { data: { pokemon_v2_pokemon: jsonData } } = await client.query({ query });
 
   return jsonData || [];
 }

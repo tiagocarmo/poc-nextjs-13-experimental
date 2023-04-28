@@ -1,9 +1,10 @@
 # poc-nextjs-13-experimental
 
-## Graphql / Headers no fetch
+## Graphql / Apollo Client
 
-- Alterado fetcher/client para chamar o graphql com uma query, apresentando resultado similar a api rest
-- Nenhuma dificuldade do trabalho com client/server, migração simples
+- Não nescesitou de provider em volta da aplicação
+- Alteração apenas do client, que de resto ja funcionou
+
 
 ## API usada para testes:
 

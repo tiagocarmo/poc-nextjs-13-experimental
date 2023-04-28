@@ -14,7 +14,7 @@ const List = ({ listInitial = [] }) => {
     const updatedList = await fetchUpdateList(offset);
     console.log('fetch client side: ', updatedList);
 
-    if (listItens !== setListItens) {
+    if (listItens !== updatedList) {
       setListItens(updatedList);
       setOffset(offset + 20);
     }
