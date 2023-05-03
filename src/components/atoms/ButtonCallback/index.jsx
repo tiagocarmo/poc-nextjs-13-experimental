@@ -1,13 +1,16 @@
 'use client';
 
+import { Button as SCButton } from './styles';
+
 const ButtonCallback = ({ fnCallback, loading }) => {
   return (
-    <button
+    <SCButton
       onClick={fnCallback}
       disabled={loading}
+      color='red'
     >
       Botão Callback
-    </button>
+    </SCButton>
   );
 }
 
